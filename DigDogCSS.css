@@ -1,0 +1,45 @@
+span.green {
+    display: inline-block;
+    height: 75px;
+    width: 75px;
+    background-color: darkolivegreen;
+    border: 4px black dotted;
+    padding: 1px;
+    margin: 1px;
+   }
+
+span.brown {
+    display: inline-block;
+    height: 75px;
+    width: 75px;
+    background-color: saddlebrown;
+    border: 2px black dotted;
+    padding: 0.5px;
+}
+
+span.bone {
+
+    display: inline-block;
+    height: 75px;
+    width: 75px;
+   background-image: url("dogNbone.JPG");
+    border: 2px black dotted;
+    padding: 0.5px;
+}
+
+progress {
+    -webkit-appearance: none;
+    apearance: none;
+    border: 2px black solid;
+    background-color: green;
+    width: 300px;
+
+}
+
+div#boneNumber {
+    font-weight: bold;
+}
+
+body {
+    text-align: center;
+}
