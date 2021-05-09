@@ -7,6 +7,10 @@ $(document).ready(function() {
     let bonesArray = [];
     let foundBones;
     let findBones;
+    let boxNumber;
+    let bar = 0;
+
+    $("div#boneNumber").text("THERE ARE " + findBones + " BONES BURIED IN THE YARD.").hide();
 
     function createBoard() {
         //Gather variable and create variables
@@ -14,10 +18,10 @@ $(document).ready(function() {
         foundBones = 0;
         findBones = numBones - foundBones;
 
-        $("div#boneNumber").text("THERE ARE " + findBones + " BONES BURIED IN THE YARD.")
+        $("div#boneNumber").text("THERE ARE " + findBones + " BONES BURIED IN THE YARD.").show();
 
         //Create numbered gameboard
-        let boxNumber = "1";
+        boxNumber = 1;
         for (let i = 0; i < numBones; i++) {
             for (let j = 0; j < numBones; j++) {
                 let newSpan = $("<span class='green'>" + boxNumber++ + "</span>")
@@ -37,64 +41,70 @@ $(document).ready(function() {
             // continue
         }
         while (bonesArray.length < numBones);
+        //onClick for playDigDug is needs to be put after the span.green is created
+        //otherwise, it cannot find the span.green to click on
         $("span.green").click(playDigDug);
     }
 
-   //Create game play function that makes green squares clickable
+   //Create game play actions events
     function playDigDug() {
 
         //find clicked square number (index + 1)
-        let SquareNum = ($(this).index() + 1);
-        //$("").siblings("")  or  .index
-        console.log(bonesArray)
+        let Num = $(this).text(); //$(this).index()
+        let SquareNum = parseInt(Num);
 
-        //fruits.includes("Peach")
+
         //if SquareNum is in array (bone locations), then replace green square with bone square else brown square
-        if (bonesArray.includes(SquareNum)) {
-            $(this).removeClass("green");
-            $(this).addClass("bone");
+        //Each span has a number if boneSquaresArray.includes(number), show bone, else brown.
+        //make box unclickable  ... if no span.green, no clicking can happen... game over.
+        if (bonesArray.includes(SquareNum))
+        {
+            //$(this).text().hide();
+            //Decrease numBones counter -- if findBones found = total
+            //Create happy or sad note if play is over or if found all bones
+            //---
+            --findBones;
+            $("div#boneNumber").text("THERE ARE " + findBones + " BONES BURIED IN THE YARD.").show();
+            //---
+            if (findBones === 0) {
+                $("div#board").text("YOUR DOGGIE FOUND ALL THE BONES!  HURRAY!!!");
+            }
+            else {
+                $(this).removeClass("green");
+                $(this).addClass("bone");
+            }
         }
+        //------------------------------------
         else {
-            $(this).removeClass("green");
-            //$("span.brown").eq(SquareNum-1).addClass("brown");
-            $(this).addClass("brown");
+            //progress bar calculation  let bar = $("div#myBar").
+            //either value=(1/(pow(numBones, 2)) or value=(4/(pow(numBones, 2))
+            //ADJUSTED RANDOM RANGE TO ALLOW SOME WINS AND SOME LOSSES
+            bar += Math.floor(Math.random() * (4/Math.pow(numBones,2))) + (1.5/Math.pow(numBones,2))
 
+            let progressBarWidth = parseFloat($("div#myProgress").width());
+            let myBarWidth = bar * progressBarWidth;
+            let barPercent = bar * 100;
+
+            //progress bar div update
+            $("div#danger").text("Danger-O-Meter: " + barPercent.toFixed(0) + "%");
+
+            //Adjust Danger-o-Meter by random %,
+            //green on right = safe, red on left = danger
+            //let barWidth = $("div#myBar").width();
+            $("div#myBar").width(myBarWidth);
+
+            //if (myBarWidth >= progressBarWidth) {
+            if (myBarWidth/progressBarWidth > .99) {
+                //if progress bar = 100% then game over
+                $("div#board").text("SHOO DOGGIE!!!  OUT OF MY YARD!!!");
+                $("div#danger").text("Danger-O-Meter: Over Limit!!!");
+            }
+            else
+            {
+                $(this).removeClass("green");
+                $(this).addClass("brown");
+            }
         }
-
-        //Give each span a number $("span:eq(number)") if boneSquaresArray.includes(number), show bone, else brown.
-        // Create if, then to click square and if number is in array, then show span#brownANDbone
-        //if no bone, show span#brown
-        //make box unclickable (array of unclickable squares?)
-        //Change Array from 0-# if using index!!!
-
-
-        }
-
-
-
-
-
-
-
-    //3. Create interactive progress bar
-    //Adjust Danger-o-Meter by random%, either value=(1/(pow(numBones, 2)) or value=(4/(pow(numBones, 2))
-    //green on right = safe, red on left = danger
-
-
-
-    //4. Decrease numBones counter
-    //if numbones found = tot
-    //Create happy or sad note if play is over or if found all bones
-
-
-    /*
-               if (Math.random() < .25)
-                   {
-                       newSpan.addClass("surprise");
-                       $("p").append(newSpan);
-                   }
-                   $("p").append("<br>")
-       */
-
+    }
 });
 

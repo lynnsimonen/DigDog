@@ -4,35 +4,47 @@
     <meta charset="UTF-8">
     <title>Dig Dog Game</title>
     <link rel="stylesheet" href="DigDogCSS.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@600&family=Luckiest+Guy&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Dig Dog</h1>
+    <div id="header">
 
-<p>You are a dog that has buried all of your bones in the yard -- but forgotten where.<br>
-    Try to dig them back up, but beware: the human gets angrier the more holes you make.<br>
-    If you dig too much, he'll shoo you off the lawn and your precious bones will be lost!<br>
+        <div id="dog1">
+            <img src="dogNbone80x60.jpg" >
+        </div>
+        <div id="dog2">
+            <h1>Dig Dog</h1>
+        </div>
+        <div id="dog3">
+           <img src="dogNbone80x60.jpg" >
+        </div>
+    </div>
 
-    The lawn is composed of a square grid of tiles.<br>
-    Click on a square to dig in it and, if you're lucky, find a bone.<br>
-    Digging a hole causes the human to get angrier, however,<br>
-    and the danger meter will increase toward the point where the human chases you away.</p>
+    <div id="game">
+        <h4> <i>Find your buried bones before the Danger-O-Meter shoos you away!.</i></h4>
 
+        <label for="numBones">HOW MANY BONES DID YOUR DOG BURY? (from 3 to 8 bones)</label><br>
+        <input type="number" id="numBones" max="8" min="3" step="1" placeholder="# bones" autofocus><br><br>
+        <button id="play">Play Game</button>
 
-<label for="numBones"><b>How many bones did your dog bury (from 3 to 8 bones)?</b></label>
-<input type="number" id="numBones" max="8" min="3" step="1" required>
-<button id="play">Play Game</button>
-<br>
-<br>
-<div id="boneNumber"></div>
-<br>
-<p><div id="board"></div></p>
-<br>
-<div class="w3-green">
-    <div id="dangerMeter" class="w3-container w3-green w3-center" style="width:20%">0%</div>
-</div>
+        <br>
+        <div id="danger">Danger-O- Meter</div>
+        <div id="myProgress" >
+            <div id="myBar"></div>
+        </div><br>
 
-<!--<label for="dangerMeter">Danger-O-Meter</label>
-<progress id="dangerMeter" min="0" max="100" value="50" length="300px"></progress> -->
+        <div id="boneNumber"></div>
+        <br>
+        <br>
+        <p><div id="board"></div></p>
+        <br>
+    </div>
+    <!-- PROGRESS BAR -->
 
 </body>
 <script
